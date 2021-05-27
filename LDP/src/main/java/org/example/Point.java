@@ -4,10 +4,19 @@ import java.util.ArrayList;
 
 public class Point {
 
-    private int id;
-    private int dim;
-    private double[] vec;
-    private String label;
+    public int id; //数据索引
+    public int dim; //数据维度
+    public double[] vec; //数据坐标
+    public String label; //原始类别
+    public int clusterId; //算法处理后类别,初始为-2，异常为-1
+
+    public int getClusterId() {
+        return clusterId;
+    }
+
+    public void setClusterId(int clusterId) {
+        this.clusterId = clusterId;
+    }
 
     public String getLabel() {
         return label;
@@ -40,6 +49,38 @@ public class Point {
         for (int i = 0; i < data.size(); i++) {
             this.vec[i] = data.get(i);
         }
+        this.clusterId = -2;
+    }
+
+    public Point(int id, ArrayList<Double> data, String label) {
+        this.id = id;
+        this.dim = data.size();
+        this.vec = new double[data.size()];
+        for (int i = 0; i < data.size(); i++) {
+            this.vec[i] = data.get(i);
+        }
+        this.label = label;
+        this.clusterId = -2;
+    }
+
+    public Point(int id, ArrayList<Double> data, int clusterId) {
+        this.id = id;
+        this.dim = data.size();
+        this.vec = new double[data.size()];
+        for (int i = 0; i < data.size(); i++) {
+            this.vec[i] = data.get(i);
+        }
+        this.clusterId = clusterId;
+    }
+
+    public Point(int id, double[] data) {
+        this.id = id;
+        this.dim = data.length;
+        this.vec = new double[data.length];
+        for (int i = 0; i < data.length; i++) {
+            this.vec[i] = data[i];
+        }
+        this.clusterId = -2;
     }
 
     public double getDisTo(Point p) {
@@ -64,6 +105,9 @@ public class Point {
         if (label != null) {
             System.out.println(this.label);
         }
+        if (clusterId != -2) {
+            System.out.println(clusterId);
+        }
         System.out.println();
     }
 
@@ -80,10 +124,22 @@ public class Point {
             sb.append(d);
             sb.append(",");
         }
-        if (label != null) {
-            sb.append(label);
+        if (this.label != null) {
+            sb.append(this.label);
         }
+        if (this.clusterId != -2) {
+            sb.append(this.clusterId);
+        }
+
         return sb.toString().split(",");
     }
 
+    @Override
+    public String toString() {
+        String result = "Point_id=" + id + "  [";
+        for (int i = 0; i < vec.length; i++) {
+            result += vec[i] + " ";
+        }
+        return result.trim()+"] clusterId: "+clusterId;
+    }
 }
