@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class Point {
 
-    public int id; //数据索引
-    public int dim; //数据维度
-    public double[] vec; //数据坐标
-    public String label; //原始类别
-    public int clusterId; //算法处理后类别,初始为-2，异常为-1
+    private int id; //数据索引
+    private int dim; //数据维度
+    private double[] vec; //数据坐标
+    private String label; //原始类别
+    private int clusterId; //算法处理后类别,初始为-2，异常为-1
+    private boolean isVisited; //算法处理后数据是否被访问过,false没有,true访问过
 
     public int getClusterId() {
         return clusterId;
@@ -38,6 +39,14 @@ public class Point {
         return vec;
     }
 
+    public boolean getIsVisited() {
+        return isVisited;
+    }
+
+    public void setIsVisited(boolean isVisited) {
+        this.isVisited = isVisited;
+    }
+
     /**
      * @param id   索引号
      * @param data 各维数据
@@ -50,6 +59,7 @@ public class Point {
             this.vec[i] = data.get(i);
         }
         this.clusterId = -2;
+        this.isVisited = false;
     }
 
     public Point(int id, ArrayList<Double> data, String label) {
@@ -61,6 +71,7 @@ public class Point {
         }
         this.label = label;
         this.clusterId = -2;
+        this.isVisited = false;
     }
 
     public Point(int id, ArrayList<Double> data, int clusterId) {
@@ -71,6 +82,7 @@ public class Point {
             this.vec[i] = data.get(i);
         }
         this.clusterId = clusterId;
+        this.isVisited = false;
     }
 
     public Point(int id, double[] data) {
@@ -81,6 +93,7 @@ public class Point {
             this.vec[i] = data[i];
         }
         this.clusterId = -2;
+        this.isVisited = false;
     }
 
     public double getDisTo(Point p) {
@@ -126,6 +139,7 @@ public class Point {
         }
         if (this.label != null) {
             sb.append(this.label);
+            sb.append(",");
         }
         if (this.clusterId != -2) {
             sb.append(this.clusterId);
@@ -140,6 +154,6 @@ public class Point {
         for (int i = 0; i < vec.length; i++) {
             result += vec[i] + " ";
         }
-        return result.trim()+"] clusterId: "+clusterId;
+        return result.trim() + "] clusterId: " + clusterId;
     }
 }

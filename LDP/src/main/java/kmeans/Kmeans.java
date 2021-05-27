@@ -1,6 +1,7 @@
 package kmeans;
 
 import org.example.Point;
+import org.example.Utils_DistanceCoumpute;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ public class Kmeans {
     private float disDiff = (float) 0.01;         //单次迭代终止条件，两次运行中类中心的距离差
 
     private static List<Point> pointList = null;  //用于存放，原始数据集所构建的点集
-    private DistanceCompute disC = new DistanceCompute();
+    private Utils_DistanceCoumpute disC = new Utils_DistanceCoumpute();
     private int len = 0;                          //用于记录每个数据点的维度
 
     public Kmeans(int k, List<Point> points) {

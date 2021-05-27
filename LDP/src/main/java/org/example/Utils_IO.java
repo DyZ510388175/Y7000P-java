@@ -7,11 +7,13 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Utils_IO {
 
     //    存放表头
     public String[] head;
+    public CsvWriter csvWriter;
 
     /**
      * @param inputpath 数据路径
@@ -73,7 +75,7 @@ public class Utils_IO {
         return points;
     }
 
-    public void csvWrite(String outputpath, ArrayList<Point> points, char regular) {
+    public void csvWrite(String outputpath, List<Point> points, char regular) {
 
         String filepath = outputpath;
         int index = Math.max(filepath.lastIndexOf("\\"), filepath.lastIndexOf("/"));
@@ -85,7 +87,7 @@ public class Utils_IO {
 
         try {
             // 创建CSV写对象
-            CsvWriter csvWriter = new CsvWriter(filepath, regular, Charset.forName("GBK"));
+            csvWriter = new CsvWriter(filepath, regular, Charset.forName("GBK"));
             //CsvWriter csvWriter = new CsvWriter(filePath);
 
             // 写表头
@@ -99,7 +101,6 @@ public class Utils_IO {
                 csvWriter.writeRecord(point.toStringarray());
             }
             csvWriter.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
